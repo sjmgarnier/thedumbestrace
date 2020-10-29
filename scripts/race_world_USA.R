@@ -57,7 +57,7 @@ my_tween <- function(data, cols, time, timerange, nframes) {
 #### DATA ####
 base_path <- "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_"
 
-stats <-  read_csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/UID_ISO_FIPS_LookUp_Table.csv")
+stats <- read_csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/UID_ISO_FIPS_LookUp_Table.csv")
 
 us_data <- read_csv(paste0(base_path, "confirmed_US.csv")) %>%
   pivot_longer(., cols = matches("[0-9]+/[0-9]+/[0-9]+"),
@@ -69,7 +69,7 @@ us_states_data <- us_data %>%
   group_by(., Date, Province_State) %>%
   summarize(., Count = sum(Count, na.rm = TRUE)) %>%
   ungroup(.) %>%
-  left_join(., filter(stats, FIPS %in% str_pad(1:78, 2, pad = "0")), by = "Province_State") %>%
+  left_join(., filter(stats, as.numeric(FIPS) %in% 1:78), by = "Province_State") %>%
   mutate(., Percent = Count / Population,
          Day = 1 + as.numeric(Date - min(Date))) %>%
   group_by(., Province_State) %>%
@@ -171,7 +171,7 @@ graph <- ggplot() +
 anim <- animate(graph, n_frames, 30, width = 1080, height = 720, bg = "#f5f5f5",
                 end_pause = 60, renderer = ffmpeg_renderer(format = "mp4"))
 
-anim_save("race1.mp4", anim, ".")
+anim_save("race1_usa.mp4", anim, "web/media/")
 
 
 #### US PERCENT ANIMATION ####
@@ -217,7 +217,7 @@ graph <- ggplot() +
 anim <- animate(graph, n_frames, 30, width = 1080, height = 720, bg = "#f5f5f5",
                 end_pause = 60, renderer = ffmpeg_renderer(format = "mp4"))
 
-anim_save("race2.mp4", anim, ".")
+anim_save("race2_usa.mp4", anim, "web/media/")
 
 
 #### WORLD COUNT ANIMATION ####
@@ -275,7 +275,7 @@ graph <- ggplot() +
 anim <- animate(graph, n_frames, 30, width = 1080, height = 720, bg = "#f5f5f5",
                 end_pause = 60, renderer = ffmpeg_renderer(format = "mp4"))
 
-anim_save("race3.mp4", anim, ".")
+anim_save("race1_world.mp4", anim, "web/media/")
 
 
 #### WORLD PERCENT ANIMATION ####
@@ -321,4 +321,4 @@ graph <- ggplot() +
 anim <- animate(graph, n_frames, 30, width = 1080, height = 720, bg = "#f5f5f5",
                 end_pause = 60, renderer = ffmpeg_renderer(format = "mp4"))
 
-anim_save("race4.mp4", anim, ".")
+anim_save("race2_world.mp4", anim, "web/media/")
