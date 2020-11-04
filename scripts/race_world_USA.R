@@ -243,7 +243,7 @@ graph <- ggplot() +
        title = "Total cases (top 20)",
        subtitle = "{ format(as.Date(world_label_data$Date[world_label_data$.frame == as.numeric(current_frame)][1]), '%b %d, %Y') }") +
   coord_flip(xlim = c(max(world_countries_data$Rank) - 18.75, max(world_countries_data$Rank))) +
-  scale_x_continuous(breaks = 1:186, labels = 186:1) +
+  scale_x_continuous(breaks = 1:186, labels = 188:1) +
   scale_y_continuous(labels = comma, limits = range(world_bar_data$Count) * c(1, 1.1)) +
   scale_fill_viridis_c(option = "inferno", begin = 0, end = 0.75, labels = comma) +
   guides(fill = guide_colorbar(title = "Daily cases (7-day average)",
@@ -289,7 +289,7 @@ graph <- ggplot() +
        title = "Percent population infected (top 20)",
        subtitle = "{ format(as.Date(world_label_data$Date[world_label_data$.frame == as.numeric(current_frame)][1]), '%b %d, %Y') }") +
   coord_flip(xlim = c(max(world_countries_data$RankPercent) - 18.75, max(world_countries_data$RankPercent))) +
-  scale_x_continuous(breaks = 1:186, labels = 186:1) +
+  scale_x_continuous(breaks = 1:186, labels = 188:1) +
   scale_y_continuous(labels = percent, limits = range(world_bar_data$Percent) * c(1, 1.1)) +
   scale_fill_viridis_c(option = "inferno", begin = 0, end = 0.75, labels = percent) +
   guides(fill = guide_colorbar(title = "Daily cases (% of population)",
